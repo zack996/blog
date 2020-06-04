@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.util.HtmlUtils;
 
 import javax.annotation.Resource;
+import javax.servlet.http.HttpSession;
 import java.util.Objects;
 
 @Controller
@@ -23,7 +24,7 @@ public class LoginController {
     @CrossOrigin
     @RequestMapping("api/login")
     @ResponseBody
-    public Result login(@RequestBody User requestUser){
+    public Result login(@RequestBody User requestUser, HttpSession session){
         String username = requestUser.getUsername();
         username = HtmlUtils.htmlEscape(username);
 
@@ -32,6 +33,7 @@ public class LoginController {
             String message = "账号密码错误";
             return new Result(CodeMsg.PASSWORD_ERROR);
         } else {
+            session.setAttribute("user", user);
             return Result.success("登陆成功");
         }
     }

@@ -13,6 +13,6 @@ public class UserService {
     UserDao userDao;
 
     public User get(String username, String password) {
-        return userDao.getByUsernameAndPassword(username,password);
+        return userDao.findByUsernameAndPassword(username,password);
     }
 }
